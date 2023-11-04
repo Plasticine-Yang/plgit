@@ -10,25 +10,28 @@ struct Args {
     repository: String,
 
     /// Branch of repository.
-    #[arg(short, long, default_value_t = String::from("main"))]
-    branch: String,
+    #[arg(short, long, required = false)]
+    branch: Option<String>,
 
+    /// Path for saving downloaded target.
     #[arg(short, long, default_value_t = String::from("."))]
-    target_path: String,
+    output_path: String,
+
+    /// HTTP Proxy.
+    #[arg(short, long, required = false)]
+    proxy: Option<String>,
 }
 
 fn main() {
-    let Args {
-        repository,
-        branch,
-        target_path,
-    } = Args::parse();
+    let args = Args::parse();
 
-    let info = GithubRepositoryInfo {
-        repository,
-        branch,
-        target_path,
-    };
+    println!("{:?}", args);
 
-    println!("info: {:?}", info);
+    // let info = GithubRepositoryInfo {
+    //     repository,
+    //     branch,
+    //     target_path,
+    // };
+
+    // println!("info: {:?}", info);
 }
